@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursework.fxControllers.UserForm">
+    <children>
+        <RadioButton id="User" fx:id="userRadio" layoutX="58.0" layoutY="59.0" mnemonicParsing="false" onAction="#disableFields" selected="true" text="User">
+            <toggleGroup>
+                <ToggleGroup fx:id="userType" />
+            </toggleGroup>
+        </RadioButton>
+        <RadioButton fx:id="restaurantRadio" layoutX="141.0" layoutY="59.0" mnemonicParsing="false" onAction="#disableFields" text="Restaurant" toggleGroup="$userType" />
+        <RadioButton fx:id="clientRadio" layoutX="275.0" layoutY="59.0" mnemonicParsing="false" onAction="#disableFields" text="Client" toggleGroup="$userType" />
+        <RadioButton fx:id="driverRadio" layoutX="413.0" layoutY="59.0" mnemonicParsing="false" onAction="#disableFields" text="Driver" toggleGroup="$userType" />
+        <Button fx:id="saveButton" layoutX="269.0" layoutY="354.0" mnemonicParsing="false" onAction="#createNewUser" prefHeight="25.0" prefWidth="63.0" text="Save" />
+        <TextField fx:id="loginField" layoutX="29.0" layoutY="111.0" promptText="Login" />
+        <PasswordField fx:id="passwordField" layoutX="29.0" layoutY="147.0" promptText="Password" />
+        <TextField fx:id="nameField" layoutX="30.0" layoutY="183.0" promptText="Name" />
+        <TextField fx:id="surnameField" layoutX="30.0" layoutY="215.0" promptText="Surname" />
+        <TextField fx:id="phoneNumberField" layoutX="30.0" layoutY="249.0" promptText="PhoneNumber" />
+        <VBox fx:id="restaurantInfoPane" layoutX="238.0" layoutY="101.0" prefHeight="228.0" prefWidth="317.0">
+            <children>
+                <TextField fx:id="restaurantNameField" prefHeight="18.0" prefWidth="317.0" promptText="Restaurant name" />
+                <TextField fx:id="addressField" prefHeight="18.0" prefWidth="317.0" promptText="Address" />
+                <TextField fx:id="restaurantOpeningTimeField" prefHeight="18.0" prefWidth="317.0" promptText="Opening Time" />
+                <TextField fx:id="restaurantClosingTimeField" prefHeight="18.0" prefWidth="317.0" promptText="Opening Time" />
+                <TextField fx:id="restaurantDescriptionField" prefHeight="75.0" prefWidth="317.0" promptText="Description" />
+            </children>
+        </VBox>
+        <VBox fx:id="driverInfoPane1" layoutX="238.0" layoutY="101.0" prefHeight="228.0" prefWidth="317.0">
+            <children>
+                <TextField fx:id="licensePlate" prefHeight="18.0" prefWidth="317.0" promptText="LicensePlate" />
+                <ComboBox fx:id="vehicleTypeComboBox" prefWidth="150.0" promptText="VehicleType" />
+            </children>
+        </VBox>
+        <VBox fx:id="clientInfoPane11" layoutX="238.0" layoutY="101.0" prefHeight="228.0" prefWidth="317.0">
+            <children>
+                <TextField fx:id="clientAddressField" prefHeight="18.0" prefWidth="317.0" promptText="Address" />
+            </children>
+        </VBox>
+        <TextField fx:id="emailField" layoutX="30.0" layoutY="283.0" promptText="Email" />
+    </children>
+</AnchorPane>
