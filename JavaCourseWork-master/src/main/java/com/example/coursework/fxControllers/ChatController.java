@@ -72,12 +72,24 @@ public class ChatController implements Initializable {
             return;
         }
         this.chat = ensureChatExists(this.order);
+        configureMessagePermissions();
         updateHeader();
         refreshMessages();
         if (currentUser == null) {
             sendButton.setDisable(true);
             markReadButton.setDisable(true);
         }
+    }
+
+    private void configureMessagePermissions() {
+        boolean allowModifications = currentUser != null && !(currentUser instanceof Restaurant);
+        deleteChatMessageButton.setVisible(allowModifications);
+        deleteChatMessageButton.setManaged(allowModifications);
+        deleteChatMessageButton.setDisable(!allowModifications);
+
+        editChatMessageButton.setVisible(allowModifications);
+        editChatMessageButton.setManaged(allowModifications);
+        editChatMessageButton.setDisable(!allowModifications);
     }
 
     private Chat ensureChatExists(FoodOrder managedOrder) {

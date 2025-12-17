@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -21,7 +22,7 @@ public class LoginForm {
     @FXML
     public TextField usernameField;
     @FXML
-    public TextField passwordField;
+    public PasswordField passwordField;
 
     private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("wolt");
 

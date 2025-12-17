@@ -154,14 +154,26 @@ public class MainForm implements Initializable {
         boolean allowUserTab = currentUser != null && currentUser.isAdmin();
 
 
-//        userTab.setVisible(allowUserTab);
-//        userTab.setManaged(allowUserTab);
+        userTab.setVisible(allowUserTab);
+        userTab.setManaged(allowUserTab);
         userTab.setDisable(!allowUserTab);
 
         if (!allowUserTab && userTab.getTabPane() != null && userTab.isSelected()) {
             userTab.getTabPane().getSelectionModel().select(orderTab);
         }
     }
+
+    private void configureOrderPermissions() {
+        boolean restrictOrderManagement = currentUser instanceof Restaurant;
+        boolean allowOrderManagement = !restrictOrderManagement;
+
+        orderaddOrderButton.setDisable(!allowOrderManagement);
+        orderUpdateStatusButton.setDisable(!allowOrderManagement);
+        deleteOrderButton.setDisable(!allowOrderManagement);
+        orderStatusColumn.setEditable(allowOrderManagement);
+        orderTable.setEditable(allowOrderManagement);
+    }
+
 
 //    private final ObservableList<Restaurant> restaurants = FXCollections.observableArrayList();
 //    private final ObservableList<Driver> drivers = FXCollections.observableArrayList();
@@ -409,6 +421,10 @@ public class MainForm implements Initializable {
         this.entityManagerFactory = emf;
         this.customHibernate = new CustomHibernate(emf);
         this.currentUser = user;
+
+
+        configureUserTabVisibility();
+        configureOrderPermissions();
 
 
         if (userTab.isSelected()) {
