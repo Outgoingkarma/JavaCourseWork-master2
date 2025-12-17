@@ -10,6 +10,8 @@ import javafx.scene.layout.VBox;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class UserForm implements Initializable {
@@ -98,60 +100,80 @@ public class UserForm implements Initializable {
     }
 
     public void createNewUser() {
-        String plainPassword = passwordField.getText();
+        String login = safeTrim(loginField.getText());
+        String plainPassword = passwordField.getText() == null ? "" : passwordField.getText();
+        String name = safeTrim(nameField.getText());
+        String surname = safeTrim(surnameField.getText());
+        String phoneNumber = safeTrim(phoneNumberField.getText());
+        String email = safeTrim(emailField.getText());
+        String restaurantName = safeTrim(restaurantNameField.getText());
+        String restaurantAddress = safeTrim(addressField.getText());
+        String restaurantOpen = safeTrim(restaurantOpeningTimeField.getText());
+        String restaurantClose = safeTrim(restaurantClosingTimeField.getText());
+        String clientAddress = safeTrim(clientAddressField.getText());
+        String driverLicensePlate = safeTrim(licensePlate.getText());
+        DriverVehicleType vehicleType = vehicleTypeComboBox.getValue();
+
+        List<String> validationErrors = validateInputs(login, plainPassword, name, surname, phoneNumber, email,
+                restaurantName, restaurantAddress, restaurantOpen, restaurantClose, clientAddress, driverLicensePlate, vehicleType);
+
+        if (!validationErrors.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, String.join("\n", validationErrors)).showAndWait();
+            return;
+        }
 
         // hash password once
         String hashedPassword = BCrypt.hashpw(plainPassword, BCrypt.gensalt(10));
 
         if (userRadio.isSelected()) {
             User user = new User(
-                    loginField.getText(),
+                    login,
                     hashedPassword,
-                    nameField.getText(),
-                    surnameField.getText(),
-                    phoneNumberField.getText(),
-                    emailField.getText(),
+                    name,
+                    surname,
+                    phoneNumber,
+                    email,
                     true
             );
             genericHibernate.create(user);
 
         } else if (restaurantRadio.isSelected()) {
             Restaurant restaurant = new Restaurant(
-                    loginField.getText(),
+                    login,,
                     hashedPassword,
-                    nameField.getText(),
-                    surnameField.getText(),
-                    restaurantNameField.getText(),
-                    phoneNumberField.getText(),
-                    emailField.getText(),
-                    addressField.getText(),
-                    restaurantOpeningTimeField.getText(),
-                    restaurantClosingTimeField.getText()
+                    name,
+                    surname,
+                    restaurantName,
+                    phoneNumber,
+                    email,
+                    restaurantAddress,
+                    restaurantOpen,
+                    restaurantClose
             );
             genericHibernate.create(restaurant);
 
         } else if (clientRadio.isSelected()) {
             BasicUser basicUser = new BasicUser(
-                    loginField.getText(),
+                    login,
                     hashedPassword,
-                    nameField.getText(),
-                    surnameField.getText(),
-                    phoneNumberField.getText(),
-                    emailField.getText(),
-                    clientAddressField.getText()
+                    name,
+                    surname,
+                    phoneNumber,
+                    email,
+                    clientAddress
             );
             genericHibernate.create(basicUser);
 
         } else {
             Driver driver = new Driver(
-                    loginField.getText(),
+                    login,
                     hashedPassword,
-                    nameField.getText(),
-                    surnameField.getText(),
-                    phoneNumberField.getText(),
-                    emailField.getText(),
-                    licensePlate.getText(),
-                    vehicleTypeComboBox.getValue()
+                    name,
+                    surname,
+                    phoneNumber,
+                    email,
+                    driverLicensePlate,
+                    vehicleType
             );
             genericHibernate.create(driver);
         }
@@ -167,5 +189,53 @@ public class UserForm implements Initializable {
         vehicleTypeComboBox.getItems().addAll(DriverVehicleType.values());
 
 
+    }
+
+
+
+    private List<String> validateInputs(String login, String password, String name, String surname, String phoneNumber,
+                                        String email, String restaurantName, String restaurantAddress,
+                                        String restaurantOpen, String restaurantClose, String clientAddress,
+                                        String driverLicensePlate, DriverVehicleType vehicleType) {
+        List<String> errors = new ArrayList<>();
+
+        if (login.isEmpty()) errors.add("Login is required");
+        if (password.isBlank()) errors.add("Password is required");
+        if (!password.isBlank() && password.length() < 6) errors.add("Password must be at least 6 characters long");
+        if (name.isEmpty()) errors.add("Name is required");
+        if (surname.isEmpty()) errors.add("Surname is required");
+        if (phoneNumber.isEmpty()) {
+            errors.add("Phone number is required");
+        } else if (!phoneNumber.matches("[\\d+\- ]+")) {
+            errors.add("Phone number contains invalid characters");
+        }
+
+        if (email.isEmpty()) {
+            errors.add("Email is required");
+        } else if (!email.matches("^.+@.+\\..+$")) {
+            errors.add("Email format is invalid");
+        }
+
+        if (restaurantRadio.isSelected()) {
+            if (restaurantName.isEmpty()) errors.add("Restaurant name is required");
+            if (restaurantAddress.isEmpty()) errors.add("Restaurant address is required");
+            if (restaurantOpen.isEmpty()) errors.add("Restaurant opening time is required");
+            if (restaurantClose.isEmpty()) errors.add("Restaurant closing time is required");
+        }
+
+        if (clientRadio.isSelected()) {
+            if (clientAddress.isEmpty()) errors.add("Client address is required");
+        }
+
+        if (driverRadio.isSelected()) {
+            if (driverLicensePlate.isEmpty()) errors.add("License plate is required");
+            if (vehicleType == null) errors.add("Vehicle type must be selected");
+        }
+
+        return errors;
+    }
+
+    private String safeTrim(String value) {
+        return value == null ? "" : value.trim();
     }
 }
