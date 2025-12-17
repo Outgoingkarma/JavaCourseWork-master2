@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -97,18 +98,27 @@ public class UserForm implements Initializable {
     }
 
     public void createNewUser() {
+        String plainPassword = passwordField.getText();
+
+        // hash password once
+        String hashedPassword = BCrypt.hashpw(plainPassword, BCrypt.gensalt(10));
+
         if (userRadio.isSelected()) {
-            User user = new User(loginField.getText(),
-                    passwordField.getText(),
+            User user = new User(
+                    loginField.getText(),
+                    hashedPassword,
                     nameField.getText(),
                     surnameField.getText(),
                     phoneNumberField.getText(),
                     emailField.getText(),
-                    true);
+                    true
+            );
             genericHibernate.create(user);
+
         } else if (restaurantRadio.isSelected()) {
-            Restaurant restaurant = new Restaurant(loginField.getText(),
-                    passwordField.getText(),
+            Restaurant restaurant = new Restaurant(
+                    loginField.getText(),
+                    hashedPassword,
                     nameField.getText(),
                     surnameField.getText(),
                     restaurantNameField.getText(),
@@ -119,18 +129,23 @@ public class UserForm implements Initializable {
                     restaurantClosingTimeField.getText()
             );
             genericHibernate.create(restaurant);
+
         } else if (clientRadio.isSelected()) {
-            BasicUser basicUser = new BasicUser(loginField.getText(),
-                    passwordField.getText(),
+            BasicUser basicUser = new BasicUser(
+                    loginField.getText(),
+                    hashedPassword,
                     nameField.getText(),
                     surnameField.getText(),
                     phoneNumberField.getText(),
                     emailField.getText(),
-                    clientAddressField.getText());
+                    clientAddressField.getText()
+            );
             genericHibernate.create(basicUser);
+
         } else {
-            Driver driver = new Driver(loginField.getText(),
-                    passwordField.getText(),
+            Driver driver = new Driver(
+                    loginField.getText(),
+                    hashedPassword,
                     nameField.getText(),
                     surnameField.getText(),
                     phoneNumberField.getText(),
@@ -140,9 +155,10 @@ public class UserForm implements Initializable {
             );
             genericHibernate.create(driver);
         }
-        saveButton.getScene().getWindow().hide();
 
+        saveButton.getScene().getWindow().hide();
     }
+
 
 
     @Override

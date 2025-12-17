@@ -14,6 +14,7 @@ module com.example.coursework {
     requires mysql.connector.j;
 
     requires javafx.graphics;
+    requires jbcrypt;
 
 
     opens com.example.coursework to javafx.fxml;

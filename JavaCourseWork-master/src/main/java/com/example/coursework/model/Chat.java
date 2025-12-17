@@ -19,6 +19,7 @@ public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String name;
     @OneToOne
     @JoinColumn(name = "chat")
     private FoodOrder order;

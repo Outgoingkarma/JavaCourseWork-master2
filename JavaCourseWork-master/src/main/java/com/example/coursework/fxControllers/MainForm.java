@@ -150,6 +150,18 @@ public class MainForm implements Initializable {
     private CustomHibernate customHibernate;
     private User currentUser;
 
+    private void configureUserTabVisibility() {
+        boolean allowUserTab = currentUser != null && currentUser.isAdmin();
+
+
+//        userTab.setVisible(allowUserTab);
+//        userTab.setManaged(allowUserTab);
+        userTab.setDisable(!allowUserTab);
+
+        if (!allowUserTab && userTab.getTabPane() != null && userTab.isSelected()) {
+            userTab.getTabPane().getSelectionModel().select(orderTab);
+        }
+    }
 
 //    private final ObservableList<Restaurant> restaurants = FXCollections.observableArrayList();
 //    private final ObservableList<Driver> drivers = FXCollections.observableArrayList();
@@ -422,6 +434,7 @@ public class MainForm implements Initializable {
                     userTableParameters.setAddress(((BasicUser) user).getAddress());
                 }
                 if (user instanceof Driver) {
+
 
                 }
                 if (user instanceof Restaurant) {

@@ -6,6 +6,7 @@ import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
 
@@ -15,23 +16,46 @@ public class CustomHibernate extends GenericHibernate {
     }
 
     public User getUserByCredentials(String username, String password) {
-        User user = null;
         try {
             entityManager = entityManagerFactory.createEntityManager();
-            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-            CriteriaQuery<User> query = cb.createQuery(User.class);
-            Root<User> root = query.from(User.class);
 
-            query.select(root).where(cb.and(
-                    cb.equal(root.get("login"), username),
-                    cb.equal(root.get("password"), password)
-            ));
-            Query q = entityManager.createQuery(query);
-            user = (User) q.getSingleResult();
+            User user = entityManager.createQuery(
+                            "SELECT u FROM User u WHERE u.login = :login", User.class)
+                    .setParameter("login", username)
+                    .getResultStream()
+                    .findFirst()
+                    .orElse(null);
+
+            if (user == null) return null;
+
+            String stored = user.getPassword();
+            if (stored == null || stored.isBlank()) return null;
+
+            boolean ok;
+            // bcrypt hash usually starts with $2a$, $2b$, $2y$
+            if (stored.startsWith("$2a$") || stored.startsWith("$2b$") || stored.startsWith("$2y$")) {
+                ok = BCrypt.checkpw(password, stored);
+            } else {
+                // legacy plaintext support
+                ok = stored.equals(password);
+
+                // optional auto-upgrade plaintext -> bcrypt
+                if (ok) {
+                    entityManager.getTransaction().begin();
+                    user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt(10)));
+                    entityManager.merge(user);
+                    entityManager.getTransaction().commit();
+                }
+            }
+
+            return ok ? user : null;
+
         } catch (Exception e) {
+            return null;
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) entityManager.close();
+            entityManager = null;
         }
-
-        return user;
     }
 
     public List<Dishes> getDishesByRestaurant(int restaurantId) {

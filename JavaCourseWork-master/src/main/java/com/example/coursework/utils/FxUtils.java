@@ -6,7 +6,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -23,15 +22,13 @@ public class FxUtils {
     public static void generateExceptionAlert(Exception e) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Exception Dialog");
-        alert.setHeaderText("Look, an Exception Dialog");
-        alert.setContentText("Could not find file blabla.txt!");
+        alert.setHeaderText("An unexpected error occurred");
+        alert.setContentText(e.getMessage() == null ? "No message available" : e.getMessage());
 
-        Exception ex = new FileNotFoundException("Could not find file blabla.txt");
-
-// Create expandable Exception.
+        // Create expandable Exception.
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
-        ex.printStackTrace(pw);
+        e.printStackTrace(pw);
         String exceptionText = sw.toString();
 
         Label label = new Label("The exception stacktrace was:");
@@ -50,7 +47,7 @@ public class FxUtils {
         expContent.add(label, 0, 0);
         expContent.add(textArea, 0, 1);
 
-// Set expandable Exception into the dialog pane.
+        // Set expandable Exception into the dialog pane.
         alert.getDialogPane().setExpandableContent(expContent);
 
         alert.showAndWait();
@@ -59,15 +56,13 @@ public class FxUtils {
     public static void generateLoginExceptionAlert(Exception e) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Exception Dialog");
-        alert.setHeaderText("Look, an Exception Dialog");
-        alert.setContentText("Toks vartotojas jau egzistuoja");
+        alert.setHeaderText("Login error");
+        alert.setContentText(e.getMessage() == null ? "Unknown login issue" : e.getMessage());
 
-        Exception ex = new FileNotFoundException("Toks vartotojas jau egzistuoja");
-
-// Create expandable Exception.
+        // Create expandable Exception.
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
-        ex.printStackTrace(pw);
+        e.printStackTrace(pw);
         String exceptionText = sw.toString();
 
         Label label = new Label("The exception stacktrace was:");
@@ -86,7 +81,7 @@ public class FxUtils {
         expContent.add(label, 0, 0);
         expContent.add(textArea, 0, 1);
 
-// Set expandable Exception into the dialog pane.
+        // Set expandable Exception into the dialog pane.
         alert.getDialogPane().setExpandableContent(expContent);
 
         alert.showAndWait();

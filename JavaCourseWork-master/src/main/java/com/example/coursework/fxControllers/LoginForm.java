@@ -29,7 +29,7 @@ public class LoginForm {
 
         CustomHibernate customHibernate = new CustomHibernate(entityManagerFactory);
         User user = customHibernate.getUserByCredentials(usernameField.getText(), passwordField.getText());
-        if (user != null || (usernameField.getText() == "" && passwordField.getText() == "")) {
+        if (user != null || (usernameField.getText().isBlank() && passwordField.getText().isBlank())) {
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main-form.fxml"));
             Parent parent = fxmlLoader.load();
             MainForm mainForm = fxmlLoader.getController();
