@@ -495,7 +495,7 @@ public class MainForm implements Initializable {
 
     public void createNewUser() throws IOException {
         LoginForm loginForm = new LoginForm();
-        loginForm.registerNewUser();
+        loginForm.registerNewUser(currentUser);
         reloadUserTab();
     }
 

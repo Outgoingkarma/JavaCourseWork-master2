@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class UserForm implements Initializable {
 
@@ -65,11 +66,28 @@ public class UserForm implements Initializable {
 
     private EntityManagerFactory entityManagerFactory;
     private GenericHibernate genericHibernate;
+    private boolean allowUserRegistration = true;
 
 
-    public void setData(EntityManagerFactory entityManagerFactory) {
+    public void setData(EntityManagerFactory entityManagerFactory, boolean allowUserRegistration) {
         this.entityManagerFactory = entityManagerFactory;
         this.genericHibernate = new GenericHibernate(entityManagerFactory);
+        this.allowUserRegistration = allowUserRegistration;
+        configureUserTypeAvailability();
+    }
+
+    private void configureUserTypeAvailability() {
+        userRadio.setDisable(!allowUserRegistration);
+        boolean restrictToRestaurant = !allowUserRegistration;
+
+        clientRadio.setDisable(restrictToRestaurant);
+        driverRadio.setDisable(restrictToRestaurant);
+
+        if (restrictToRestaurant) {
+            restaurantRadio.setSelected(true);
+        }
+
+        disableFields();
     }
 
     public void disableFields() {
@@ -101,7 +119,7 @@ public class UserForm implements Initializable {
 
     public void createNewUser() {
         String login = safeTrim(loginField.getText());
-        String plainPassword = passwordField.getText() == null ? "" : passwordField.getText();
+        String plainPassword = safeTrim(passwordField.getText());
         String name = safeTrim(nameField.getText());
         String surname = safeTrim(surnameField.getText());
         String phoneNumber = safeTrim(phoneNumberField.getText());
@@ -139,7 +157,7 @@ public class UserForm implements Initializable {
 
         } else if (restaurantRadio.isSelected()) {
             Restaurant restaurant = new Restaurant(
-                    login,,
+                    login,
                     hashedPassword,
                     name,
                     surname,
@@ -191,7 +209,8 @@ public class UserForm implements Initializable {
 
     }
 
-
+    private static final Pattern PHONE_PATTERN = Pattern.compile("[\\d+\\- ]+");
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^.+@.+\\..+$");
 
     private List<String> validateInputs(String login, String password, String name, String surname, String phoneNumber,
                                         String email, String restaurantName, String restaurantAddress,
@@ -199,20 +218,24 @@ public class UserForm implements Initializable {
                                         String driverLicensePlate, DriverVehicleType vehicleType) {
         List<String> errors = new ArrayList<>();
 
-        if (login.isEmpty()) errors.add("Login is required");
+        if (login.isEmpty()) {
+            errors.add("Login is required");
+        } else if (login.length() < 3) {
+            errors.add("Login must be at least 3 characters long");
+        }
         if (password.isBlank()) errors.add("Password is required");
         if (!password.isBlank() && password.length() < 6) errors.add("Password must be at least 6 characters long");
         if (name.isEmpty()) errors.add("Name is required");
         if (surname.isEmpty()) errors.add("Surname is required");
         if (phoneNumber.isEmpty()) {
             errors.add("Phone number is required");
-        } else if (!phoneNumber.matches("[\\d+\- ]+")) {
+        } else if (!PHONE_PATTERN.matcher(phoneNumber).matches()) {
             errors.add("Phone number contains invalid characters");
         }
 
         if (email.isEmpty()) {
             errors.add("Email is required");
-        } else if (!email.matches("^.+@.+\\..+$")) {
+        } else if (!EMAIL_PATTERN.matcher(email).matches()) {
             errors.add("Email format is invalid");
         }
 

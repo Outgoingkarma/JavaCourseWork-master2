@@ -20,7 +20,7 @@ public class CustomHibernate extends GenericHibernate {
             entityManager = entityManagerFactory.createEntityManager();
 
             User user = entityManager.createQuery(
-                            "SELECT u FROM User u WHERE u.login = :login", User.class)
+                            "SELECT u FROM User u WHERE u.login = :login AND TYPE(u) IN (User, Restaurant)", User.class)
                     .setParameter("login", username)
                     .getResultStream()
                     .findFirst()
@@ -130,6 +130,20 @@ public class CustomHibernate extends GenericHibernate {
         }
 
     }
-
+    public boolean hasBaseUser() {
+        try {
+            entityManager = entityManagerFactory.createEntityManager();
+            Long count = entityManager.createQuery(
+                            "SELECT COUNT(u) FROM User u WHERE TYPE(u) = User",
+                            Long.class)
+                    .getSingleResult();
+            return count != null && count > 0;
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) {
+                entityManager.close();
+            }
+            entityManager = null;
+        }
+    }
 
 }

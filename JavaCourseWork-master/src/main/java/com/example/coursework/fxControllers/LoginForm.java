@@ -46,10 +46,18 @@ public class LoginForm {
     }
 
     public void registerNewUser() throws IOException {
+        registerNewUser(null);
+    }
+
+    public void registerNewUser(User currentUser) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("user-form.fxml"));
         Parent parent = fxmlLoader.load();
         UserForm userForm = fxmlLoader.getController();
-        userForm.setData(entityManagerFactory);
+        CustomHibernate customHibernate = new CustomHibernate(entityManagerFactory);
+        boolean allowUserRegistration = !customHibernate.hasBaseUser()
+                || (currentUser != null && currentUser.getClass().equals(User.class));
+
+        userForm.setData(entityManagerFactory, allowUserRegistration);
         Scene scene = new Scene(parent);
         Stage stage = new Stage();
         stage.setTitle("Register form!");
