@@ -82,6 +82,8 @@ public class MainForm implements Initializable {
     @FXML
     public Button orderUpdateStatusButton;
     @FXML
+    public TabPane mainTabPane;
+    @FXML
     public Tab userTab;
     @FXML
     public Tab orderTab;
@@ -154,12 +156,18 @@ public class MainForm implements Initializable {
         boolean allowUserTab = currentUser != null && currentUser.isAdmin();
 
 
-        userTab.setVisible(allowUserTab);
-        userTab.setManaged(allowUserTab);
         userTab.setDisable(!allowUserTab);
+        if (allowUserTab) {
+            if (!mainTabPane.getTabs().contains(userTab)) {
+                mainTabPane.getTabs().add(0, userTab);
+            }
+        } else {
+            boolean wasSelected = userTab.isSelected();
+            mainTabPane.getTabs().remove(userTab);
 
-        if (!allowUserTab && userTab.getTabPane() != null && userTab.isSelected()) {
-            userTab.getTabPane().getSelectionModel().select(orderTab);
+            if (wasSelected && mainTabPane.getTabs().contains(orderTab)) {
+                mainTabPane.getSelectionModel().select(orderTab);
+            }
         }
     }
 

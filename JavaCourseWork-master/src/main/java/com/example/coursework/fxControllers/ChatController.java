@@ -4,12 +4,15 @@ import com.example.coursework.hibernateControl.GenericHibernate;
 import com.example.coursework.model.*;
 import com.example.coursework.utils.FxUtils;
 import jakarta.persistence.EntityManagerFactory;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
@@ -42,6 +45,7 @@ public class ChatController implements Initializable {
     private final ObservableList<ChatMessage> messages = FXCollections.observableArrayList();
     public Button deleteChatMessageButton;
     public Button editChatMessageButton;
+    private Timeline autoRefreshTimeline;
     private GenericHibernate genericHibernate;
     private FoodOrder order;
     private Chat chat;
@@ -59,6 +63,16 @@ public class ChatController implements Initializable {
                 } else {
                     setText(formatMessage(item));
                 }
+            }
+        });
+
+        messagesListView.sceneProperty().addListener((obsScene, oldScene, newScene) -> {
+            if (newScene != null) {
+                newScene.windowProperty().addListener((obsWindow, oldWindow, newWindow) -> {
+                    if (newWindow != null) {
+                        newWindow.setOnHidden(event -> stopAutoRefresh());
+                    }
+                });
             }
         });
     }
@@ -79,6 +93,7 @@ public class ChatController implements Initializable {
             sendButton.setDisable(true);
             markReadButton.setDisable(true);
         }
+        startAutoRefresh();
     }
 
     private void configureMessagePermissions() {
@@ -208,6 +223,26 @@ public class ChatController implements Initializable {
     public void refreshChat() {
         refreshMessages();
     }
+
+
+    private void startAutoRefresh() {
+        if (autoRefreshTimeline != null) {
+            autoRefreshTimeline.stop();
+        }
+
+        autoRefreshTimeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> refreshMessages()));
+        autoRefreshTimeline.setCycleCount(Timeline.INDEFINITE);
+        autoRefreshTimeline.play();
+    }
+
+    private void stopAutoRefresh() {
+        if (autoRefreshTimeline != null) {
+            autoRefreshTimeline.stop();
+        }
+    }
+
+
+
 
     private String formatMessage(ChatMessage item) {
         String senderName = "Unknown";
