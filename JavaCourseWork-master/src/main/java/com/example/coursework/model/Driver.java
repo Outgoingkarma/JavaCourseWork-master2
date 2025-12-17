@@ -23,7 +23,7 @@ public class Driver extends User {
     private FoodOrder currentOrder;
     @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FoodOrder> myOrders;
-    private double rating;
+    private Double rating;
     @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Chat> chats;
 
@@ -66,10 +66,11 @@ public class Driver extends User {
     }
 
     public void updateRating(double newRating) {
+        double currentRating = this.rating == null ? 0.0 : this.rating;
         if (totalDeliveries == 0) {
             this.rating = newRating;
         } else {
-            this.rating = (this.rating * totalDeliveries + newRating) / (totalDeliveries + 1);
+            this.rating = (currentRating * totalDeliveries + newRating) / (totalDeliveries + 1);
         }
     }
 
