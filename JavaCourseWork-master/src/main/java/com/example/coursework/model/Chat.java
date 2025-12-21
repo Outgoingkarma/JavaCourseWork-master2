@@ -44,14 +44,6 @@ public class Chat {
         this.lastMessageDate = message.getDateCreated() == null ? LocalDateTime.now() : message.getDateCreated();
     }
 
-    public List<ChatMessage> getUnreadMessages(User user) {
-        if (user == null || messages == null) {
-            return List.of();
-        }
-        return messages.stream()
-                .filter(msg -> !msg.isRead() && msg.getMessageSender() != null && msg.getMessageSender().getId() != user.getId())
-                .toList();
-    }
 
     public void markAllAsRead(User user) {
         if (user == null || messages == null) return;

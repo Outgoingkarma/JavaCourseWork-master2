@@ -47,33 +47,6 @@ public class Driver extends User {
     }
 
 
-    private void toggleAvailability() {
-        this.isAvailable = !this.isAvailable;
-    }
-
-    public void assignOrder(FoodOrder order) {
-        this.currentOrder = order;
-        toggleAvailability();
-    }
-
-    public void completeDelivery() {
-        if (currentOrder != null) {
-            this.totalDeliveries++;
-            this.myOrders.add(currentOrder);
-            this.currentOrder = null;
-            toggleAvailability();
-        }
-    }
-
-    public void updateRating(double newRating) {
-        double currentRating = this.rating == null ? 0.0 : this.rating;
-        if (totalDeliveries == 0) {
-            this.rating = newRating;
-        } else {
-            this.rating = (currentRating * totalDeliveries + newRating) / (totalDeliveries + 1);
-        }
-    }
-
 }
 
 

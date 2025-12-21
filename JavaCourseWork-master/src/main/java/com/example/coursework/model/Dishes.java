@@ -53,21 +53,6 @@ public class Dishes {
     }
 
 
-    public void addIngredient(DishesIngredients ingredient) {
-        if (!this.dishesIngredients.contains(ingredient)) {
-            this.dishesIngredients.add(ingredient);
-        }
-    }
-
-    public void removeIngredient(DishesIngredients ingredient) {
-        this.dishesIngredients.remove(ingredient);
-    }
-
-
-    public void toggleAvailability() {
-        this.isAvailable = !this.isAvailable;
-    }
-
     @Override
     public String toString() {
         return name + " " + dishesPortionSize + " " + price;

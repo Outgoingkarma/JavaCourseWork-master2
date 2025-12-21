@@ -29,7 +29,5 @@ public class ChatMessage {
         this.isRead = true;
     }
 
-    public void markAsUnread() {
-        this.isRead = false;
-    }
+
 }

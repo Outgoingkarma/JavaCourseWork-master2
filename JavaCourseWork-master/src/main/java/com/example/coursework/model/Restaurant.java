@@ -33,7 +33,7 @@ public class Restaurant extends User {
     private String address;
     @Transient
     private String imageURL;
-    String restaurantName;
+    private String restaurantName;
 
 
     public Restaurant(String login, String password, String name, String surname, String restaurantName, String phone_number, String email, String address, String openTime, String closeTime) {
@@ -50,39 +50,6 @@ public class Restaurant extends User {
         this.openTime = openTime;
         this.closeTime = closeTime;
         this.isAdmin = false;
-    }
-
-
-    public void addDish(Dishes dish) {
-        this.dishesMenu.add(dish);
-    }
-
-    public void removeDish(Dishes dish) {
-        this.dishesMenu.remove(dish);
-    }
-
-    public void updateRating() {
-        this.totalReviews = this.reviews.size();
-        if (totalReviews > 0) {
-            this.averageRating = this.reviews.stream().mapToDouble(Review::getRating).average().orElse(0.0);
-        }
-    }
-
-    public void addReview(Review review) {
-        this.reviews.add(review);
-        updateRating();
-    }
-
-    //public boolean isOpen() {
-    //    return (LocalTime.now().isBefore(openTime) || LocalTime.now().isAfter(closeTime));
-    // }
-
-    public void toggleActive() {
-        this.isActive = !this.isActive;
-    }
-
-    public List<Dishes> getAvailableDishes() {
-        return dishesMenu.stream().filter(Dishes::isAvailable).toList();
     }
 
 

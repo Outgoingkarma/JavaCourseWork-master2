@@ -73,7 +73,7 @@ public class FoodOrder {
 
     }
 
-    public Chat ensureChat() {
+    public void ensureChat() {
         if (this.chat == null) {
             Chat newChat = new Chat();
             newChat.setOrder(this);
@@ -87,7 +87,6 @@ public class FoodOrder {
             chat.setRestaurant(restaurant);
             chat.setOrder(this);
         }
-        return this.chat;
     }
 
 

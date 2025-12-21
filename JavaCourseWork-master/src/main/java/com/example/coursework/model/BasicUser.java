@@ -39,24 +39,5 @@ public class BasicUser extends User {
     }
 
 
-    public void addOrder(FoodOrder foodOrder) {
-        this.myOrders.add(foodOrder);
-    }
-
-    public void addReview(Review review) {
-        this.myReviews.add(review);
-    }
-
-    public List<FoodOrder> getPendingOrders() {
-        return myOrders.stream()
-                .filter(order -> !order.isDelivered())
-                .toList();
-    }
-
-    public List<FoodOrder> getCompletedOrders() {
-        return myOrders.stream()
-                .filter(FoodOrder::isDelivered)
-                .toList();
-    }
 
 }
