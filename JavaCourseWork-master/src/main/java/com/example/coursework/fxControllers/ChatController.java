@@ -50,7 +50,7 @@ public class ChatController implements Initializable {
     private FoodOrder order;
     private Chat chat;
     private User currentUser;
-
+//a
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         messagesListView.setItems(messages);
