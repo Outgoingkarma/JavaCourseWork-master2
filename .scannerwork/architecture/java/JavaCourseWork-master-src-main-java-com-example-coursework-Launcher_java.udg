@@ -1,111 +1,0 @@
-
-1.0$Outgoingkarma_JavaCourseWork-master2JavaFrontend"1792266441371*java2.Bò
-M
-HJavaCourseWork-master/src/main/java/com/example/coursework/Launcher.java2
-	
-type3
-	
-MAIN4
-
-package6
-
-com.example.coursework7
-$
-com.example.coursework.Launcher9
-
-class10
-
-access11
-
-public12
-
-
-full-range13
-
-(5:1)-(9:2)14
-
-simple-name15
-
-Launcher16
-@
-:com.example.coursework.Launcher#main([Ljava/lang/String;)V18
-
-method19
-
-(6:5)-(8:6)20
-
-
-main21
-
-java.lang.String23
-
-unknown24
-
-	has param25
-
-is type26
-
-
-uses27
--
-'com.example.coursework.HelloApplication29J
-
-1
-12
-
-
-3
-4 Z
-
-5
-5768j¿
-M
-17G
-171819 *
-1 (28:5B$
-
-
-11
-12
-
-
-13
-20
-
-
-15
-21
-
-22
-222324
-
-28
-282924
-G
-8B
-8910 *
-1 (:5B$
-
-
-11
-12
-
-
-13
-14
-
-
-15
-16rl
-
-172225*
-1 (%
-
-172226*
-1& (*
-
-172227*
-1 (#
-
-172827*
-1 (,

@@ -1,7 +1,0 @@
-organization=outgoingkarma
-projectKey=Outgoingkarma_JavaCourseWork-master2
-serverUrl=https://sonarcloud.io
-serverVersion=8.0.0.112198
-dashboardUrl=https://sonarcloud.io/dashboard?id=Outgoingkarma_JavaCourseWork-master2
-ceTaskId=AaFLZ71yDHT7I1azedFK
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AaFLZ71yDHT7I1azedFK
