@@ -15,47 +15,64 @@ public class CustomHibernate extends GenericHibernate {
         super(entityManagerFactory);
     }
 
+    private static final List<String> BCRYPT_PREFIXES = List.of("$2a$", "$2b$", "$2y$");
+
     public User getUserByCredentials(String username, String password) {
         try {
             entityManager = entityManagerFactory.createEntityManager();
 
-            User user = entityManager.createQuery(
-                            "SELECT u FROM User u WHERE u.login = :login AND TYPE(u) IN (User, Restaurant)", User.class)
-                    .setParameter("login", username)
-                    .getResultStream()
-                    .findFirst()
-                    .orElse(null);
+            User user = findUserByLogin(username);
+            if (user == null || isBlank(user.getPassword())) return null;
 
-            if (user == null) return null;
-
-            String stored = user.getPassword();
-            if (stored == null || stored.isBlank()) return null;
-
-            boolean ok;
-            // bcrypt hash usually starts with $2a$, $2b$, $2y$
-            if (stored.startsWith("$2a$") || stored.startsWith("$2b$") || stored.startsWith("$2y$")) {
-                ok = BCrypt.checkpw(password, stored);
-            } else {
-                // legacy plaintext support
-                ok = stored.equals(password);
-
-                // optional auto-upgrade plaintext -> bcrypt
-                if (ok) {
-                    entityManager.getTransaction().begin();
-                    user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt(10)));
-                    entityManager.merge(user);
-                    entityManager.getTransaction().commit();
-                }
-            }
-
-            return ok ? user : null;
+            return passwordMatches(user, password) ? user : null;
 
         } catch (Exception e) {
             return null;
         } finally {
-            if (entityManager != null && entityManager.isOpen()) entityManager.close();
-            entityManager = null;
+            closeEntityManager();
         }
+    }
+
+    private User findUserByLogin(String login) {
+        return entityManager.createQuery(
+                        "SELECT u FROM User u WHERE u.login = :login AND TYPE(u) IN (User, Restaurant)", User.class)
+                .setParameter("login", login)
+                .getResultStream()
+                .findFirst()
+                .orElse(null);
+    }
+
+    private static boolean isBlank(String value) {
+        return value == null || value.isBlank();
+    }
+
+    private static boolean isBcryptHash(String stored) {
+        return BCRYPT_PREFIXES.stream().anyMatch(stored::startsWith);
+    }
+
+    private boolean passwordMatches(User user, String rawPassword) {
+        String stored = user.getPassword();
+        if (isBcryptHash(stored)) {
+            return BCrypt.checkpw(rawPassword, stored);
+        }
+        // legacy plaintext support
+        boolean matches = stored.equals(rawPassword);
+        if (matches) {
+            upgradeToBcrypt(user, rawPassword);
+        }
+        return matches;
+    }
+
+    private void upgradeToBcrypt(User user, String rawPassword) {
+        entityManager.getTransaction().begin();
+        user.setPassword(BCrypt.hashpw(rawPassword, BCrypt.gensalt(10)));
+        entityManager.merge(user);
+        entityManager.getTransaction().commit();
+    }
+
+    private void closeEntityManager() {
+        if (entityManager != null && entityManager.isOpen()) entityManager.close();
+        entityManager = null;
     }
 
     public List<Dishes> getDishesByRestaurant(int restaurantId) {
