@@ -1,0 +1,449 @@
+
+1.0$Outgoingkarma_JavaCourseWork-master2JavaFrontend"1792266440857*java2.B¨
+V
+QJavaCourseWork-master/src/main/java/com/example/coursework/model/ChatMessage.java2
+	
+type3
+	
+MAIN4
+
+package6
+!
+com.example.coursework.model7
+-
+(com.example.coursework.model.ChatMessage9
+
+class10
+
+access11
+
+public12
+
+
+full-range13
+
+(11:1)-(33:2)14
+
+simple-name15
+
+ChatMessage16
+
+Getter18
+
+unknown19
+
+annotated by20
+$
+Recovered#typeBindingLGetter;022
+
+
+uses23
+
+Setter25
+$
+Recovered#typeBindingLSetter;027
+
+NoArgsConstructor29
+/
+)Recovered#typeBindingLNoArgsConstructor;031
+
+AllArgsConstructor33
+0
+*Recovered#typeBindingLAllArgsConstructor;035
+
+Entity37
+$
+Recovered#typeBindingLEntity;039
+8
+2com.example.coursework.model.ChatMessage.messageId41
+
+field42
+
+private43
+
+(17:5)-(19:27)44
+
+	messageId45
+
+Id47
+ 
+Recovered#typeBindingLId;049
+
+GeneratedValue51
+,
+&Recovered#typeBindingLGeneratedValue;053
+:
+4com.example.coursework.model.ChatMessage.messageText55
+
+(20:5)-(20:32)56
+
+messageText57
+
+java.lang.String59
+
+is type60
+<
+6com.example.coursework.model.ChatMessage.messageSender62
+
+(21:5)-(22:32)63
+
+messageSender64
+'
+!com.example.coursework.model.User66
+
+	ManyToOne68
+'
+!Recovered#typeBindingLManyToOne;070
+:
+4com.example.coursework.model.ChatMessage.dateCreated72
+
+(23:5)-(23:61)73
+
+dateCreated74
+
+java.time.LocalDateTime76
+
+returns77
+
+
+references78
+<
+6java.time.LocalDateTime#now()Ljava/time/LocalDateTime;80
+
+method81
+
+calls82
+5
+/com.example.coursework.model.ChatMessage.isRead84
+
+(24:5)-(24:36)85
+
+isRead86
+3
+-com.example.coursework.model.ChatMessage.chat88
+
+(25:5)-(26:23)89
+
+
+chat90
+'
+!com.example.coursework.model.Chat92
+<
+6com.example.coursework.model.ChatMessage#markAsRead()V94
+
+(28:5)-(30:6)95
+
+
+markAsRead96J
+
+1
+12
+
+
+3
+4 Z
+
+5
+5768j–
+
+28
+282919
+M
+87G
+878842 *
+1 (28:5B$
+
+
+11
+43
+
+
+13
+89
+
+
+15
+90
+
+91
+919219
+
+36
+363719
+M
+61G
+616242 *
+1 (28:5B$
+
+
+11
+43
+
+
+13
+63
+
+
+15
+64
+
+17
+171819
+
+75
+757619
+
+34
+343519
+M
+83G
+838442 *
+1 (28:5B$
+
+
+11
+43
+
+
+13
+85
+
+
+15
+86
+
+30
+303119
+
+26
+262719
+
+67
+676819
+
+50
+505119
+
+52
+525319
+
+65
+656619
+
+58
+585919
+G
+8B
+8910 *
+1 (:5B$
+
+
+11
+12
+
+
+13
+14
+
+
+15
+16
+M
+71G
+717242 *
+1 (&28:5B$
+
+
+11
+43
+
+
+13
+73
+
+
+15
+74
+
+69
+697019
+
+32
+323319
+
+21
+212219
+
+79
+798081
+
+38
+383919
+
+24
+242519
+M
+54G
+545542 *
+1 (28:5B$
+
+
+11
+43
+
+
+13
+56
+
+
+15
+57
+
+46
+464719
+M
+40G
+404142 *
+1 (28:5B$
+
+
+11
+43
+
+
+13
+44
+
+
+15
+45
+
+48
+484919
+M
+93G
+939481 *
+1 (28:5B$
+
+
+11
+12
+
+
+13
+95
+
+
+15
+96rÛ
+
+81720*
+1 (
+
+82123*
+1 (
+
+82420*
+1 (
+
+82623*
+1 (
+
+82820*
+1 (
+
+83023*
+1 (
+
+83220*
+1 (
+
+83423*
+1 (
+
+83620*
+1 (
+
+83823*
+1 (
+
+404620*
+1 (
+
+404823*
+1 (
+
+405020*
+1 (8
+
+405223*
+1 (
+
+545860*
+1 (
+
+545823*
+1 (
+
+545823*
+1 (
+
+616560*
+1 (
+
+616720*
+1 (
+
+616923*
+1 (
+
+616523*
+1 (
+
+616523*
+1 (
+
+717560*
+1 (
+
+717523*
+1 (
+
+717523*
+1 (&
+
+717577*
+1) (:
+
+717578*
+1) (:
+
+717982*
+17 (:
+
+717523*
+1) (6
+
+879160*
+1 (
+
+876720*
+1 (
+
+876923*
+1 (
+
+879123*
+1 (
+
+879123*
+1 (
+
+93823*
+1	 (
+
+93878*
+1	 (
+
+938378*
+1 (

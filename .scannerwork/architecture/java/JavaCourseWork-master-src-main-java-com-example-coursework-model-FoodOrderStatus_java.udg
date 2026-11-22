@@ -1,0 +1,164 @@
+
+1.0$Outgoingkarma_JavaCourseWork-master2JavaFrontend"1792266439060*java2.Bð
+Z
+UJavaCourseWork-master/src/main/java/com/example/coursework/model/FoodOrderStatus.java2
+	
+type3
+	
+MAIN4
+
+package6
+!
+com.example.coursework.model7
+1
+,com.example.coursework.model.FoodOrderStatus9
+
+
+enum10
+
+access11
+
+public12
+
+
+full-range13
+
+(3:1)-(8:2)14
+
+simple-name15
+
+FoodOrderStatus16
+j
+dcom.example.coursework.model.FoodOrderStatus#values()[Lcom/example/coursework/model/FoodOrderStatus;18
+
+method19
+
+values20
+|
+vcom.example.coursework.model.FoodOrderStatus#valueOf(Ljava/lang/String;)Lcom/example/coursework/model/FoodOrderStatus;22
+
+valueOf23
+6
+0com.example.coursework.model.FoodOrderStatus.NEW25
+
+field26
+
+(4:5)-(4:9)27
+	
+NEW28
+>
+8com.example.coursework.model.FoodOrderStatus.IN_PROGRESS30
+
+(5:5)-(5:17)31
+
+IN_PROGRESS32
+;
+5com.example.coursework.model.FoodOrderStatus.FINISHED34
+
+(6:5)-(6:14)35
+
+FINISHED36
+<
+6com.example.coursework.model.FoodOrderStatus.CANCELLED38
+
+(7:5)-(7:15)39
+
+	CANCELLED40J
+
+1
+12
+
+
+3
+4 Z
+
+5
+5768jÛ
+A
+37;
+373826 *
+1 (28:5B
+
+
+13
+39
+
+
+15
+40
+A
+21;
+212219 *
+1 (28:5B
+
+
+13
+14
+
+
+15
+23
+A
+29;
+293026 *
+1 (28:5B
+
+
+13
+31
+
+
+15
+32
+A
+24;
+242526 *
+1 (28:5B
+
+
+13
+27
+
+
+15
+28
+A
+33;
+333426 *
+1 (28:5B
+
+
+13
+35
+
+
+15
+36
+A
+17;
+171819 *
+1 (28:5B
+
+
+13
+14
+
+
+15
+20
+G
+8B
+8910 *
+1 (:5B$
+
+
+11
+12
+
+
+13
+14
+
+
+15
+16

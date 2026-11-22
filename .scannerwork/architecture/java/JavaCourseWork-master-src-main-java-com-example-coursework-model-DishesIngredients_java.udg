@@ -1,0 +1,786 @@
+
+1.0$Outgoingkarma_JavaCourseWork-master2JavaFrontend"1792266440164*java2.B¿#
+\
+WJavaCourseWork-master/src/main/java/com/example/coursework/model/DishesIngredients.java2
+	
+type3
+	
+MAIN4
+
+package6
+!
+com.example.coursework.model7
+3
+.com.example.coursework.model.DishesIngredients9
+
+
+enum10
+
+access11
+
+public12
+
+
+full-range13
+
+(3:1)-(44:2)14
+
+simple-name15
+
+DishesIngredients16
+n
+hcom.example.coursework.model.DishesIngredients#values()[Lcom/example/coursework/model/DishesIngredients;18
+
+method19
+
+values20
+€
+zcom.example.coursework.model.DishesIngredients#valueOf(Ljava/lang/String;)Lcom/example/coursework/model/DishesIngredients;22
+
+valueOf23
+9
+3com.example.coursework.model.DishesIngredients.MILK25
+
+field26
+
+(4:5)-(4:10)27
+
+
+MILK28
+9
+3com.example.coursework.model.DishesIngredients.EGGS30
+
+(5:5)-(5:10)31
+
+
+EGGS32
+:
+4com.example.coursework.model.DishesIngredients.WHEAT34
+
+(6:5)-(6:11)35
+
+WHEAT36
+8
+2com.example.coursework.model.DishesIngredients.SOY38
+
+(7:5)-(7:9)39
+	
+SOY40
+<
+6com.example.coursework.model.DishesIngredients.PEANUTS42
+
+(8:5)-(8:13)43
+
+PEANUTS44
+>
+8com.example.coursework.model.DishesIngredients.TREE_NUTS46
+
+(9:5)-(9:15)47
+
+	TREE_NUTS48
+9
+3com.example.coursework.model.DishesIngredients.FISH50
+
+(10:5)-(10:10)51
+
+
+FISH52
+>
+8com.example.coursework.model.DishesIngredients.SHELLFISH54
+
+(11:5)-(11:15)55
+
+	SHELLFISH56
+;
+5com.example.coursework.model.DishesIngredients.SESAME58
+
+(12:5)-(12:12)59
+
+SESAME60
+9
+3com.example.coursework.model.DishesIngredients.RICE62
+
+(13:5)-(13:10)63
+
+
+RICE64
+9
+3com.example.coursework.model.DishesIngredients.CORN66
+
+(14:5)-(14:10)67
+
+
+CORN68
+;
+5com.example.coursework.model.DishesIngredients.POTATO70
+
+(15:5)-(15:12)71
+
+POTATO72
+;
+5com.example.coursework.model.DishesIngredients.TOMATO74
+
+(16:5)-(16:12)75
+
+TOMATO76
+:
+4com.example.coursework.model.DishesIngredients.ONION78
+
+(17:5)-(17:11)79
+
+ONION80
+;
+5com.example.coursework.model.DishesIngredients.GARLIC82
+
+(18:5)-(18:12)83
+
+GARLIC84
+<
+6com.example.coursework.model.DishesIngredients.CHICKEN86
+
+(19:5)-(19:13)87
+
+CHICKEN88
+9
+3com.example.coursework.model.DishesIngredients.BEEF90
+
+(20:5)-(20:10)91
+
+
+BEEF92
+9
+3com.example.coursework.model.DishesIngredients.PORK94
+
+(21:5)-(21:10)95
+
+
+PORK96
+9
+3com.example.coursework.model.DishesIngredients.LAMB98
+
+(22:5)-(22:10)99
+
+LAMB100
+<
+5com.example.coursework.model.DishesIngredients.SHRIMP102
+
+(23:5)-(23:12)103
+
+SHRIMP104
+<
+5com.example.coursework.model.DishesIngredients.SALMON106
+
+(24:5)-(24:12)107
+
+SALMON108
+:
+3com.example.coursework.model.DishesIngredients.TUNA110
+
+(25:5)-(25:10)111
+
+TUNA112
+:
+3com.example.coursework.model.DishesIngredients.OATS114
+
+(26:5)-(26:10)115
+
+OATS116
+<
+5com.example.coursework.model.DishesIngredients.BARLEY118
+
+(27:5)-(27:12)119
+
+BARLEY120
+9
+2com.example.coursework.model.DishesIngredients.RYE122
+
+(28:5)-(28:9)123
+
+
+RYE124
+;
+4com.example.coursework.model.DishesIngredients.HONEY126
+
+(29:5)-(29:11)127
+
+HONEY128
+?
+8com.example.coursework.model.DishesIngredients.CHOCOLATE130
+
+(30:5)-(30:15)131
+
+	CHOCOLATE132
+@
+9com.example.coursework.model.DishesIngredients.STRAWBERRY134
+
+(31:5)-(31:16)135
+
+
+STRAWBERRY136
+;
+4com.example.coursework.model.DishesIngredients.APPLE138
+
+(32:5)-(32:11)139
+
+APPLE140
+<
+5com.example.coursework.model.DishesIngredients.BANANA142
+
+(33:5)-(33:12)143
+
+BANANA144
+<
+5com.example.coursework.model.DishesIngredients.ORANGE146
+
+(34:5)-(34:12)147
+
+ORANGE148
+;
+4com.example.coursework.model.DishesIngredients.LEMON150
+
+(35:5)-(35:11)151
+
+LEMON152
+=
+6com.example.coursework.model.DishesIngredients.LETTUCE154
+
+(36:5)-(36:13)155
+
+LETTUCE156
+=
+6com.example.coursework.model.DishesIngredients.SPINACH158
+
+(37:5)-(37:13)159
+
+SPINACH160
+<
+5com.example.coursework.model.DishesIngredients.CARROT162
+
+(38:5)-(38:12)163
+
+CARROT164
+>
+7com.example.coursework.model.DishesIngredients.BROCCOLI166
+
+(39:5)-(39:14)167
+
+BROCCOLI168
+<
+5com.example.coursework.model.DishesIngredients.CHEESE170
+
+(40:5)-(40:12)171
+
+CHEESE172
+<
+5com.example.coursework.model.DishesIngredients.YOGURT174
+
+(41:5)-(41:12)175
+
+YOGURT176
+<
+5com.example.coursework.model.DishesIngredients.BUTTER178
+
+(42:5)-(42:12)179
+
+BUTTER180
+;
+4com.example.coursework.model.DishesIngredients.CREAM182
+
+(43:5)-(43:10)183
+
+CREAM184J
+
+1
+12
+
+
+3
+4 Z
+
+5
+5768j±
+F
+137?
+13713826 *
+1   (
+28:5B
+
+13
+139
+
+15
+140
+A
+57;
+575826 *
+1 (28:5B
+
+
+13
+59
+
+
+15
+60
+A
+69;
+697026 *
+1 (28:5B
+
+
+13
+71
+
+
+15
+72
+F
+125?
+12512626 *
+1 (
+28:5B
+
+13
+127
+
+15
+128
+F
+109?
+10911026 *
+1 (	28:5B
+
+13
+111
+
+15
+112
+A
+65;
+656626 *
+1 (	28:5B
+
+
+13
+67
+
+
+15
+68
+A
+37;
+373826 *
+1 (28:5B
+
+
+13
+39
+
+
+15
+40
+A
+21;
+212219 *
+1 (28:5B
+
+
+13
+14
+
+
+15
+23
+A
+45;
+454626 *
+1	 	(28:5B
+
+
+13
+47
+
+
+15
+48
+F
+149?
+14915026 *
+1# #(
+28:5B
+
+13
+151
+
+15
+152
+A
+41;
+414226 *
+1 (28:5B
+
+
+13
+43
+
+
+15
+44
+G
+8B
+8910 *
+1 (:5B$
+
+
+11
+12
+
+
+13
+14
+
+
+15
+16
+F
+101?
+10110226 *
+1 (28:5B
+
+13
+103
+
+15
+104
+F
+181?
+18118226 *
+1+ +(
+28:5B
+
+13
+183
+
+15
+184
+A
+73;
+737426 *
+1 (28:5B
+
+
+13
+75
+
+
+15
+76
+F
+165?
+16516626 *
+1' '(28:5B
+
+13
+167
+
+15
+168
+A
+49;
+495026 *
+1
+ 
+(	28:5B
+
+
+13
+51
+
+
+15
+52
+A
+85;
+858626 *
+1 (28:5B
+
+
+13
+87
+
+
+15
+88
+F
+173?
+17317426 *
+1) )(28:5B
+
+13
+175
+
+15
+176
+A
+61;
+616226 *
+1 (	28:5B
+
+
+13
+63
+
+
+15
+64
+A
+17;
+171819 *
+1 (28:5B
+
+
+13
+14
+
+
+15
+20
+A
+24;
+242526 *
+1 (	28:5B
+
+
+13
+27
+
+
+15
+28
+A
+53;
+535426 *
+1 (28:5B
+
+
+13
+55
+
+
+15
+56
+A
+89;
+899026 *
+1 (	28:5B
+
+
+13
+91
+
+
+15
+92
+F
+129?
+12913026 *
+1 (28:5B
+
+13
+131
+
+15
+132
+A
+33;
+333426 *
+1 (
+28:5B
+
+
+13
+35
+
+
+15
+36
+F
+113?
+11311426 *
+1 (	28:5B
+
+13
+115
+
+15
+116
+B
+97<
+979826 *
+1 (	28:5B
+
+
+13
+99
+
+15
+100
+F
+153?
+15315426 *
+1$ $(28:5B
+
+13
+155
+
+15
+156
+F
+145?
+14514626 *
+1" "(28:5B
+
+13
+147
+
+15
+148
+A
+81;
+818226 *
+1 (28:5B
+
+
+13
+83
+
+
+15
+84
+F
+141?
+14114226 *
+1! !(28:5B
+
+13
+143
+
+15
+144
+F
+177?
+17717826 *
+1* *(28:5B
+
+13
+179
+
+15
+180
+A
+77;
+777826 *
+1 (
+28:5B
+
+
+13
+79
+
+
+15
+80
+A
+29;
+293026 *
+1 (	28:5B
+
+
+13
+31
+
+
+15
+32
+F
+121?
+12112226 *
+1 (28:5B
+
+13
+123
+
+15
+124
+F
+133?
+13313426 *
+1 (28:5B
+
+13
+135
+
+15
+136
+F
+161?
+16116226 *
+1& &(28:5B
+
+13
+163
+
+15
+164
+F
+169?
+16917026 *
+1( ((28:5B
+
+13
+171
+
+15
+172
+F
+157?
+15715826 *
+1% %(28:5B
+
+13
+159
+
+15
+160
+A
+93;
+939426 *
+1 (	28:5B
+
+
+13
+95
+
+
+15
+96
+F
+105?
+10510626 *
+1 (28:5B
+
+13
+107
+
+15
+108
+F
+117?
+11711826 *
+1 (28:5B
+
+13
+119
+
+15
+120

@@ -1,0 +1,202 @@
+
+1.0$Outgoingkarma_JavaCourseWork-master2JavaFrontend"1792266439454*java2.BÕ
+S
+NJavaCourseWork-master/src/main/java/com/example/coursework/model/DishType.java2
+	
+type3
+	
+MAIN4
+
+package6
+!
+com.example.coursework.model7
+*
+%com.example.coursework.model.DishType9
+
+
+enum10
+
+access11
+
+public12
+
+
+full-range13
+
+(3:1)-(10:2)14
+
+simple-name15
+
+DishType16
+\
+Vcom.example.coursework.model.DishType#values()[Lcom/example/coursework/model/DishType;18
+
+method19
+
+values20
+n
+hcom.example.coursework.model.DishType#valueOf(Ljava/lang/String;)Lcom/example/coursework/model/DishType;22
+
+valueOf23
+5
+/com.example.coursework.model.DishType.APPETIZER25
+
+field26
+
+(4:5)-(4:15)27
+
+	APPETIZER28
+7
+1com.example.coursework.model.DishType.MAIN_COURSE30
+
+(5:5)-(5:17)31
+
+MAIN_COURSE32
+5
+/com.example.coursework.model.DishType.SIDE_DISH34
+
+(6:5)-(6:15)35
+
+	SIDE_DISH36
+3
+-com.example.coursework.model.DishType.DESSERT38
+
+(7:5)-(7:13)39
+
+DESSERT40
+1
++com.example.coursework.model.DishType.SALAD42
+
+(8:5)-(8:11)43
+
+SALAD44
+0
+*com.example.coursework.model.DishType.SOUP46
+
+(9:5)-(9:10)47
+
+
+SOUP48J
+
+1
+12
+
+
+3
+4 Z
+
+5
+5768já
+A
+41;
+414226 *
+1 (
+28:5B
+
+
+13
+43
+
+
+15
+44
+G
+8B
+8910 *
+1 (:5B$
+
+
+11
+12
+
+
+13
+14
+
+
+15
+16
+A
+24;
+242526 *
+1 (28:5B
+
+
+13
+27
+
+
+15
+28
+A
+17;
+171819 *
+1 (28:5B
+
+
+13
+14
+
+
+15
+20
+A
+21;
+212219 *
+1 (28:5B
+
+
+13
+14
+
+
+15
+23
+A
+33;
+333426 *
+1 (28:5B
+
+
+13
+35
+
+
+15
+36
+A
+45;
+454626 *
+1	 	(	28:5B
+
+
+13
+47
+
+
+15
+48
+A
+29;
+293026 *
+1 (28:5B
+
+
+13
+31
+
+
+15
+32
+A
+37;
+373826 *
+1 (28:5B
+
+
+13
+39
+
+
+15
+40

@@ -1,0 +1,165 @@
+
+1.0$Outgoingkarma_JavaCourseWork-master2JavaFrontend"1792266440150*java2.Bó
+\
+WJavaCourseWork-master/src/main/java/com/example/coursework/model/DriverVehicleType.java2
+	
+type3
+	
+MAIN4
+
+package6
+!
+com.example.coursework.model7
+3
+.com.example.coursework.model.DriverVehicleType9
+
+
+enum10
+
+access11
+
+public12
+
+
+full-range13
+
+(3:1)-(8:2)14
+
+simple-name15
+
+DriverVehicleType16
+n
+hcom.example.coursework.model.DriverVehicleType#values()[Lcom/example/coursework/model/DriverVehicleType;18
+
+method19
+
+values20
+€
+zcom.example.coursework.model.DriverVehicleType#valueOf(Ljava/lang/String;)Lcom/example/coursework/model/DriverVehicleType;22
+
+valueOf23
+8
+2com.example.coursework.model.DriverVehicleType.CAR25
+
+field26
+
+(4:5)-(4:9)27
+	
+CAR28
+<
+6com.example.coursework.model.DriverVehicleType.SCOOTER30
+
+(5:5)-(5:13)31
+
+SCOOTER32
+9
+3com.example.coursework.model.DriverVehicleType.BIKE34
+
+(6:5)-(6:10)35
+
+
+BIKE36
+<
+6com.example.coursework.model.DriverVehicleType.BY_FOOT38
+
+(7:5)-(7:12)39
+
+BY_FOOT40J
+
+1
+12
+
+
+3
+4 Z
+
+5
+5768jÛ
+A
+37;
+373826 *
+1 (28:5B
+
+
+13
+39
+
+
+15
+40
+G
+8B
+8910 *
+1 (:5B$
+
+
+11
+12
+
+
+13
+14
+
+
+15
+16
+A
+17;
+171819 *
+1 (28:5B
+
+
+13
+14
+
+
+15
+20
+A
+21;
+212219 *
+1 (28:5B
+
+
+13
+14
+
+
+15
+23
+A
+33;
+333426 *
+1 (	28:5B
+
+
+13
+35
+
+
+15
+36
+A
+24;
+242526 *
+1 (28:5B
+
+
+13
+27
+
+
+15
+28
+A
+29;
+293026 *
+1 (28:5B
+
+
+13
+31
+
+
+15
+32
