@@ -26,6 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.converter.DoubleStringConverter;
 
 import java.io.IOException;
@@ -35,6 +36,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 import static com.example.coursework.fxControllers.CreateFoodOrder.PRICE_FORMAT;
 
@@ -190,8 +193,24 @@ public class MainForm implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setupUserTable();
+        setupOrderTable();
+        setupRestaurantsList();
+        setupDishTable();
+        setupSelectionListeners();
+        setupIngredientLists();
+        setupOrderedFoodList();
+    }
+
+    // ---------- users ----------
+
+    private void setupUserTable() {
         userTable.setEditable(true);
-        //userTable.setItems(data);
+        setupUserColumnValues();
+        setupUserColumnEditing();
+    }
+
+    private void setupUserColumnValues() {
         userIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         userLoginColumn.setCellValueFactory(new PropertyValueFactory<>("login"));
         userPasswordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
@@ -201,77 +220,26 @@ public class MainForm implements Initializable {
         userPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         userAddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
         userTypeColumn.setCellValueFactory(new PropertyValueFactory<>("userType"));
-        //userOrderHistoryColumn.setCellValueFactory(new PropertyValueFactory<>("orderHistory"));
+    }
 
+    private void setupUserColumnEditing() {
+        Function<UserTableParameters, User> loadUser = row -> customHibernate.getRecordById(User.class, row.getId());
+        Callback<TableColumn<UserTableParameters, String>, TableCell<UserTableParameters, String>> textCell =
+                TextFieldTableCell.forTableColumn();
 
-        userLoginColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        userLoginColumn.setOnEditCommit(event -> {
-            event.getTableView().getItems().get(event.getTablePosition().getRow()).setLogin(event.getNewValue());
-            User user = customHibernate.getRecordById(User.class, event.getTableView().getItems().get(event.getTablePosition().getRow()).getId());
-            user.setPassword(event.getNewValue());
-            customHibernate.update(user);
-        });
+        bindEditableColumn(userLoginColumn, textCell, loadUser, UserTableParameters::setLogin, User::setPassword);
+        bindEditableColumn(userPasswordColumn, textCell, loadUser, UserTableParameters::setPassword, User::setPassword);
+        bindEditableColumn(userNameColumn, textCell, loadUser, UserTableParameters::setName, User::setName);
+        bindEditableColumn(userSurnameColumn, textCell, loadUser, UserTableParameters::setSurname, User::setName);
+        bindEditableColumn(userEmailColumn, textCell, loadUser, UserTableParameters::setEmail, User::setName);
+        bindEditableColumn(userPhoneColumn, textCell, loadUser, UserTableParameters::setPhoneNumber, User::setName);
+        bindEditableColumn(userAddressColumn, textCell, loadUser, UserTableParameters::setAddress, User::setName);
+        // User type column is intentionally not editable.
+    }
 
-        userPasswordColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        userPasswordColumn.setOnEditCommit(event -> {
-            event.getTableView().getItems().get(event.getTablePosition().getRow()).setPassword(event.getNewValue());
-            User user = customHibernate.getRecordById(User.class, event.getTableView().getItems().get(event.getTablePosition().getRow()).getId());
-            user.setPassword(event.getNewValue());
-            customHibernate.update(user);
-        });
+    // ---------- orders ----------
 
-        userNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        userNameColumn.setOnEditCommit(event -> {
-            event.getTableView().getItems().get(event.getTablePosition().getRow()).setName(event.getNewValue());
-            User user = customHibernate.getRecordById(User.class, event.getTableView().getItems().get(event.getTablePosition().getRow()).getId());
-            user.setName(event.getNewValue());
-            customHibernate.update(user);
-        });
-
-        userSurnameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        userSurnameColumn.setOnEditCommit(event -> {
-            event.getTableView().getItems().get(event.getTablePosition().getRow()).setSurname(event.getNewValue());
-            User user = customHibernate.getRecordById(User.class, event.getTableView().getItems().get(event.getTablePosition().getRow()).getId());
-            user.setName(event.getNewValue());
-            customHibernate.update(user);
-        });
-
-        userEmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        userEmailColumn.setOnEditCommit(event -> {
-            event.getTableView().getItems().get(event.getTablePosition().getRow()).setEmail(event.getNewValue());
-            User user = customHibernate.getRecordById(User.class, event.getTableView().getItems().get(event.getTablePosition().getRow()).getId());
-            user.setName(event.getNewValue());
-            customHibernate.update(user);
-        });
-
-        userPhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        userPhoneColumn.setOnEditCommit(event -> {
-            event.getTableView().getItems().get(event.getTablePosition().getRow()).setPhoneNumber(event.getNewValue());
-            User user = customHibernate.getRecordById(User.class, event.getTableView().getItems().get(event.getTablePosition().getRow()).getId());
-            user.setName(event.getNewValue());
-            customHibernate.update(user);
-        });
-
-        userAddressColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        userAddressColumn.setOnEditCommit(event -> {
-            event.getTableView().getItems().get(event.getTablePosition().getRow()).setAddress(event.getNewValue());
-            User user = customHibernate.getRecordById(User.class, event.getTableView().getItems().get(event.getTablePosition().getRow()).getId());
-            user.setName(event.getNewValue());
-            customHibernate.update(user);
-        });
-
-//        userTypeColumn.setCellFactory(ComboBoxTableCell.forTableColumn());
-//        userTypeColumn.setOnEditCommit(event -> {
-//            event.getTableView().getItems().get(event.getTablePosition().getRow()).setUserType(event.getNewValue());
-//            User user = customHibernate.getRecordById(User.class, event.getTableView().getItems().get(event.getTablePosition().getRow()).getId());
-//            user.setName(event.getNewValue());
-//            customHibernate.update(user);
-//        });
-        // Kol kas manau kad nenoriu kad butu galima keisti userio tipa
-
-        //userTable.getItems().addAll(data);
-
-
+    private void setupOrderTable() {
         orderIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         orderCustomerColumn.setCellValueFactory(param -> new SimpleStringProperty(formatUser(param.getValue().getCustomer())));
         orderRestaurantColumn.setCellValueFactory(param -> new SimpleStringProperty(formatRestaurant(param.getValue().getRestaurant())));
@@ -282,15 +250,14 @@ public class MainForm implements Initializable {
         orderTable.setItems(orderData);
         orderTable.setEditable(true);
 
-        orderStatusColumn.setCellFactory(ComboBoxTableCell.forTableColumn(FoodOrderStatus.values()));
-        orderStatusColumn.setOnEditCommit(event -> {
-            event.getTableView().getItems().get(event.getTablePosition().getRow()).setOrderStatus(event.getNewValue());
-            FoodOrder foodOrder = customHibernate.getFoodOrderWithDishes(event.getTableView().getItems().get(event.getTablePosition().getRow()).getId());
-            foodOrder.setOrderStatus(event.getNewValue());
-            customHibernate.update(foodOrder);
-        });
+        bindEditableColumn(orderStatusColumn, ComboBoxTableCell.forTableColumn(FoodOrderStatus.values()),
+                row -> customHibernate.getFoodOrderWithDishes(row.getId()),
+                FoodOrder::setOrderStatus, FoodOrder::setOrderStatus);
+    }
 
+    // ---------- restaurants and dishes ----------
 
+    private void setupRestaurantsList() {
         restaurantsList.setCellFactory(lv -> new ListCell<Restaurant>() {
             @Override
             protected void updateItem(Restaurant restaurant, boolean empty) {
@@ -299,7 +266,9 @@ public class MainForm implements Initializable {
             }
         });
         restaurantsList.setItems(restaurants);
+    }
 
+    private void setupDishTable() {
         dishIDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         dishNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         dishTypeColumn.setCellValueFactory(new PropertyValueFactory<>("dishType"));
@@ -308,39 +277,41 @@ public class MainForm implements Initializable {
         restaurantMenuTable.setItems(dishes);
         restaurantMenuTable.setEditable(true);
 
-        dishNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        dishNameColumn.setOnEditCommit(event -> {
-            event.getTableView().getItems().get(event.getTablePosition().getRow()).setName(event.getNewValue());
-            Dishes dish = customHibernate.getRecordById(Dishes.class, event.getTableView().getItems().get(event.getTablePosition().getRow()).getId());
-            dish.setName(event.getNewValue());
-            customHibernate.update(dish);
+        Function<Dishes, Dishes> loadDish = row -> customHibernate.getRecordById(Dishes.class, row.getId());
+        bindEditableColumn(dishNameColumn, TextFieldTableCell.forTableColumn(),
+                loadDish, Dishes::setName, Dishes::setName);
+        bindEditableColumn(dishTypeColumn, ComboBoxTableCell.forTableColumn(DishType.values()),
+                loadDish, Dishes::setDishType, Dishes::setDishType);
+        bindEditableColumn(dishPortionSizeColumn, ComboBoxTableCell.forTableColumn(DishesPortionSize.values()),
+                loadDish, Dishes::setDishesPortionSize, Dishes::setDishesPortionSize);
+        bindEditableColumn(dishPriceColumn, TextFieldTableCell.forTableColumn(new DoubleStringConverter()),
+                loadDish, Dishes::setPrice, Dishes::setPrice);
+    }
+
+    // ---------- shared helper ----------
+
+    /**
+     * Configures an editable column: sets its cell factory and, on edit commit, updates the displayed row,
+     * reloads the persisted entity, applies the new value to it and saves it.
+     */
+    private <R, E, T> void bindEditableColumn(TableColumn<R, T> column,
+                                              Callback<TableColumn<R, T>, TableCell<R, T>> cellFactory,
+                                              Function<R, E> loadEntity,
+                                              BiConsumer<R, T> rowSetter,
+                                              BiConsumer<E, T> entitySetter) {
+        column.setCellFactory(cellFactory);
+        column.setOnEditCommit(event -> {
+            R row = event.getTableView().getItems().get(event.getTablePosition().getRow());
+            rowSetter.accept(row, event.getNewValue());
+            E entity = loadEntity.apply(row);
+            entitySetter.accept(entity, event.getNewValue());
+            customHibernate.update(entity);
         });
+    }
 
-        dishTypeColumn.setCellFactory(ComboBoxTableCell.forTableColumn(DishType.values()));
-        dishTypeColumn.setOnEditCommit(event -> {
-            event.getTableView().getItems().get(event.getTablePosition().getRow()).setDishType(event.getNewValue());
-            Dishes dish = customHibernate.getRecordById(Dishes.class, event.getTableView().getItems().get(event.getTablePosition().getRow()).getId());
-            dish.setDishType(event.getNewValue());
-            customHibernate.update(dish);
-        });
+    // ---------- selection listeners and lists ----------
 
-        dishPortionSizeColumn.setCellFactory(ComboBoxTableCell.forTableColumn(DishesPortionSize.values()));
-        dishPortionSizeColumn.setOnEditCommit(event -> {
-            event.getTableView().getItems().get(event.getTablePosition().getRow()).setDishesPortionSize(event.getNewValue());
-            Dishes dish = customHibernate.getRecordById(Dishes.class, event.getTableView().getItems().get(event.getTablePosition().getRow()).getId());
-            dish.setDishesPortionSize(event.getNewValue());
-            customHibernate.update(dish);
-        });
-
-        dishPriceColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
-        dishPriceColumn.setOnEditCommit(event -> {
-            event.getTableView().getItems().get(event.getTablePosition().getRow()).setPrice(event.getNewValue());
-            Dishes dish = customHibernate.getRecordById(Dishes.class, event.getTableView().getItems().get(event.getTablePosition().getRow()).getId());
-            dish.setPrice(event.getNewValue());
-            customHibernate.update(dish);
-        });
-
-
+    private void setupSelectionListeners() {
         restaurantsList.getSelectionModel().selectedItemProperty().addListener((obs, previousRestaurant, selectedRestaurant) -> {
             loadDishesForRestaurant(selectedRestaurant);
         });
@@ -349,11 +320,17 @@ public class MainForm implements Initializable {
             showDishDetails(d);
         });
 
+        orderTable.getSelectionModel().selectedItemProperty().addListener((obs, previousValue, selected) -> showOrderDetails(selected));
+    }
+
+    private void setupIngredientLists() {
         allDishIngredientsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         selectedDishIngredientsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         selectedDishIngredientsList.setItems(selectedDishIngredients);
         allDishIngredientsList.setItems(dishesIngredients);
+    }
 
+    private void setupOrderedFoodList() {
         orderedFoodList.setItems(orderedFoodItems);
         orderedFoodList.setCellFactory(lv -> new ListCell<>() {
             @Override
@@ -362,7 +339,6 @@ public class MainForm implements Initializable {
                 setText(empty || dish == null ? null : dish.getName() + " " + dish.getDishesPortionSize() + " " + PRICE_FORMAT.format(dish.getPrice()));
             }
         });
-        orderTable.getSelectionModel().selectedItemProperty().addListener((obs, previousValue, selected) -> showOrderDetails(selected));
     }
 
 
