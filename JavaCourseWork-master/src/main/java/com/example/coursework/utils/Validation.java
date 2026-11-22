@@ -23,23 +23,50 @@ public final class Validation {
                                                   String addressOrNullIfNA) {
         List<String> errors = new ArrayList<>();
 
-        if (isBlank(login)) errors.add("Login is required.");
-        if (isBlank(password)) errors.add("Password is required.");
-        if (password != null && password.length() < 6) errors.add("Password must be at least 6 characters.");
-        if (isBlank(name)) errors.add("Name is required.");
-        if (isBlank(surname)) errors.add("Surname is required.");
+        validateRequired(login, "Login is required.", errors);
+        validatePassword(password, errors);
+        validateRequired(name, "Name is required.", errors);
+        validateRequired(surname, "Surname is required.", errors);
+        validateEmail(email, errors);
+        validatePhone(phone, errors);
+        validateAddress(addressOrNullIfNA, errors);
 
-        if (isBlank(email)) errors.add("Email is required.");
-        else if (!EMAIL_RX.matcher(email).matches()) errors.add("Email format is invalid.");
+        return errors;
+    }
 
-        if (isBlank(phone)) errors.add("Phone number is required.");
-        else if (!PHONE_RX.matcher(phone).matches()) errors.add("Phone number format is invalid.");
+    private static void validateRequired(String value, String message, List<String> errors) {
+        if (isBlank(value)) {
+            errors.add(message);
+        }
+    }
 
+    private static void validatePassword(String password, List<String> errors) {
+        validateRequired(password, "Password is required.", errors);
+        if (password != null && password.length() < 6) {
+            errors.add("Password must be at least 6 characters.");
+        }
+    }
+
+    private static void validateEmail(String email, List<String> errors) {
+        if (isBlank(email)) {
+            errors.add("Email is required.");
+        } else if (!EMAIL_RX.matcher(email).matches()) {
+            errors.add("Email format is invalid.");
+        }
+    }
+
+    private static void validatePhone(String phone, List<String> errors) {
+        if (isBlank(phone)) {
+            errors.add("Phone number is required.");
+        } else if (!PHONE_RX.matcher(phone).matches()) {
+            errors.add("Phone number format is invalid.");
+        }
+    }
+
+    private static void validateAddress(String addressOrNullIfNA, List<String> errors) {
         if (addressOrNullIfNA != null && addressOrNullIfNA.isBlank()) {
             errors.add("Address is required for clients or restaurants");
         }
-
-        return errors;
     }
 
     private static boolean isBlank(String s) {
