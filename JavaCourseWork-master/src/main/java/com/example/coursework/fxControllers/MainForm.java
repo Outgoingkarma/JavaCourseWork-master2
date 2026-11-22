@@ -620,72 +620,44 @@ public class MainForm implements Initializable {
 
     public void filterData() {
         data.clear();
-        if (!filterName.getText().isEmpty() && filterSurname.getText().isEmpty()) {
-            List<User> users = customHibernate.findByName(User.class, filterName.getText());
-            for (User user : users) {
-                UserTableParameters userTableParameters = new UserTableParameters();
-                userTableParameters.setId(user.getId());
-                userTableParameters.setLogin(user.getLogin());
-                userTableParameters.setPassword(user.getPassword());
-                userTableParameters.setName(user.getName());
-                userTableParameters.setSurname(user.getSurname());
-                userTableParameters.setEmail(user.getEmail());
-                userTableParameters.setPhoneNumber(user.getPhone_number());
-                if (user instanceof BasicUser) {
-                    userTableParameters.setAddress(((BasicUser) user).getAddress());
-                }
-
-                userTableParameters.setUserType(user.getClass().getSimpleName());
-                data.add(userTableParameters);
-            }
-            userTable.getItems().clear();
-            userTable.getItems().addAll(data);
-        } else if (filterName.getText().isEmpty() && !filterSurname.getText().isEmpty()) {
-            List<User> users = customHibernate.findBySurname(User.class, filterSurname.getText());
-            for (User user : users) {
-                UserTableParameters userTableParameters = new UserTableParameters();
-                userTableParameters.setId(user.getId());
-                userTableParameters.setLogin(user.getLogin());
-                userTableParameters.setPassword(user.getPassword());
-                userTableParameters.setName(user.getName());
-                userTableParameters.setSurname(user.getSurname());
-                userTableParameters.setEmail(user.getEmail());
-                userTableParameters.setPhoneNumber(user.getPhone_number());
-                if (user instanceof BasicUser) {
-                    userTableParameters.setAddress(((BasicUser) user).getAddress());
-                }
-
-                userTableParameters.setUserType(user.getClass().getSimpleName());
-                data.add(userTableParameters);
-
-            }
-            userTable.getItems().clear();
-            userTable.getItems().addAll(data);
-        } else if (!filterName.getText().isEmpty() && !filterSurname.getText().isEmpty()) {
-            List<User> users = customHibernate.findByNameAndSurname(User.class, filterName.getText(), filterSurname.getText());
-            for (User user : users) {
-                UserTableParameters userTableParameters = new UserTableParameters();
-                userTableParameters.setId(user.getId());
-                userTableParameters.setLogin(user.getLogin());
-                userTableParameters.setPassword(user.getPassword());
-                userTableParameters.setName(user.getName());
-                userTableParameters.setSurname(user.getSurname());
-                userTableParameters.setEmail(user.getEmail());
-                userTableParameters.setPhoneNumber(user.getPhone_number());
-                if (user instanceof BasicUser) {
-                    userTableParameters.setAddress(((BasicUser) user).getAddress());
-                }
-
-                userTableParameters.setUserType(user.getClass().getSimpleName());
-                data.add(userTableParameters);
-            }
-            userTable.getItems().clear();
-            userTable.getItems().addAll(data);
-        } else {
+        String name = filterName.getText();
+        String surname = filterSurname.getText();
+        if (name.isEmpty() && surname.isEmpty()) {
             reloadUserTab();
+            return;
         }
 
+        for (User user : findUsers(name, surname)) {
+            data.add(toTableRow(user));
+        }
+        userTable.getItems().clear();
+        userTable.getItems().addAll(data);
+    }
 
+    private List<User> findUsers(String name, String surname) {
+        if (name.isEmpty()) {
+            return customHibernate.findBySurname(User.class, surname);
+        }
+        if (surname.isEmpty()) {
+            return customHibernate.findByName(User.class, name);
+        }
+        return customHibernate.findByNameAndSurname(User.class, name, surname);
+    }
+
+    private UserTableParameters toTableRow(User user) {
+        UserTableParameters row = new UserTableParameters();
+        row.setId(user.getId());
+        row.setLogin(user.getLogin());
+        row.setPassword(user.getPassword());
+        row.setName(user.getName());
+        row.setSurname(user.getSurname());
+        row.setEmail(user.getEmail());
+        row.setPhoneNumber(user.getPhone_number());
+        if (user instanceof BasicUser customer) {
+            row.setAddress(customer.getAddress());
+        }
+        row.setUserType(user.getClass().getSimpleName());
+        return row;
     }
 
     public void createOrder() throws IOException {
